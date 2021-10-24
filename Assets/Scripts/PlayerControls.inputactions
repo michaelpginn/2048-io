@@ -192,6 +192,17 @@
                 },
                 {
                     "name": "",
+                    "id": "5205a15e-8aac-4678-af73-3166701252db",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Aim",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "3ce255c2-26f9-4d01-840c-bd14ad30ac0b",
                     "path": "<Mouse>/leftButton",
                     "interactions": "",

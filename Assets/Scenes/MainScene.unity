@@ -1213,18 +1213,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 870146530}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 53c4e265d68054a5c9843593a24eb28a, type: 3}
+  m_Script: {fileID: 11500000, guid: 2491584d37b8142a69dfaf70fbde83fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerSpeed: 5
+  playerSpeed: 1000
   jumpHeight: 1
   gravityValue: -9.81
-  rotationSpeed: 2
+  rotationSpeed: 10
   bulletPrefab: {fileID: 3277973637912677366, guid: bcd882b1b175d46aabed38eb197632c1, type: 3}
   barrelTransform: {fileID: 230904854}
   bulletParent: {fileID: 278204}
   virtualCamera: {fileID: 0}
-  playerModel: {fileID: 0}
+  movementInput: {x: 0, y: 0, z: 0}
+  shouldJump: 0
+  targetRotation: {x: 0, y: 0, z: 0, w: 0}
 --- !u!143 &870146536
 CharacterController:
   m_ObjectHideFlags: 0
@@ -1282,25 +1284,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 870146530}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa08b081780254aed9174b80a19d11f7, type: 3}
+  m_Script: {fileID: 11500000, guid: 75d2eebca35e240f7a8a16fb09efbd84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scales:
-  - {x: 1, y: 1, z: 1}
-  - {x: 1.25, y: 1.25, z: 1.25}
-  - {x: 1.5, y: 1.5, z: 1.5}
-  - {x: 1.75, y: 1.75, z: 1.75}
-  - {x: 2, y: 2, z: 2}
-  - {x: 2.25, y: 2.25, z: 2.25}
-  - {x: 2.5, y: 2.5, z: 2.5}
-  - {x: 2.75, y: 2.75, z: 2.75}
-  - {x: 3, y: 3, z: 3}
-  - {x: 3.25, y: 3.25, z: 3.25}
-  - {x: 3.5, y: 3.5, z: 3.5}
-  - {x: 3.75, y: 3.75, z: 3.75}
   playerType: 0
   level: 0
-  meshrenderer: {fileID: 0}
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0

@@ -8,19 +8,9 @@ using UnityEngine.InputSystem;
 public class HumanPlayerController : MonoBehaviour
 {
     private PlayerController playerController;
-    private CharacterController controller;
     private PlayerInput playerInput;
 
-    // These should be filled in by the Playercontorller
-    public float playerSpeed;
-    public float jumpHeight;
-    public float gravityValue;
-    public float rotationSpeed;
-
-    private Vector3 playerVelocity;
-    private bool groundedPlayer;
     private Transform cameraTransform;
-
 
     private InputAction moveAction; 
     private InputAction jumpAction;
@@ -35,13 +25,11 @@ public class HumanPlayerController : MonoBehaviour
     {
         playerModel = GetComponent<PlayerModel>();
         playerController = GetComponent<PlayerController>();
-        controller = GetComponent<CharacterController>();
         playerInput = GetComponent<PlayerInput>();
         cameraTransform = Camera.main.transform;
         moveAction = playerInput.actions["Move"];
         jumpAction = playerInput.actions["Jump"];
         shootAction = playerInput.actions["Shoot"];
-
 
         Cursor.lockState = CursorLockMode.Locked;
     }
@@ -83,30 +71,18 @@ public class HumanPlayerController : MonoBehaviour
 
     void Update()
     {
-        groundedPlayer = controller.isGrounded;
-        if (groundedPlayer && playerVelocity.y < 0)
-        {
-            playerVelocity.y = 0f;
-        }
-
+        // Update playerController input values based on input
         Vector2 input = moveAction.ReadValue<Vector2>();
         Vector3 move = new Vector3(input.x, 0, input.y);
         move = move.x * cameraTransform.right.normalized + move.z * cameraTransform.forward.normalized;
         move.y = 0f;
-        controller.Move(move * Time.deltaTime * playerSpeed);
+        playerController.movementInput = move;
 
-        // Changes the height position of the player..
-        if (jumpAction.triggered && groundedPlayer)
-        {
-            playerVelocity.y += Mathf.Sqrt(jumpHeight * -3.0f * gravityValue);
-        }
-
-        playerVelocity.y += gravityValue * Time.deltaTime;
-        controller.Move(playerVelocity * Time.deltaTime);
+        playerController.shouldJump = jumpAction.triggered;
 
         // Rotate player to face same as camera
         float targetAngle = cameraTransform.eulerAngles.y;
         Quaternion targetRotation = Quaternion.Euler(0, targetAngle, 0);
-        transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+        playerController.targetRotation = targetRotation;
     }
 }
