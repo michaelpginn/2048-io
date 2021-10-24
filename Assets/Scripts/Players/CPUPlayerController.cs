@@ -4,66 +4,57 @@ using UnityEditor.UI;
 
 public class CPUPlayerController : MonoBehaviour
 {
-    //variables
     private PlayerController playerController;
-    
-    private int delta = 200;
-    private int frames = 0;
-    private float scale = 0.05f;
-    Vector3 direction;
-    
-    
-    
-    
+
+    private float nextChangeTime = 0.0f;
+    private float changePeriod = 1.0f;
+
+    private Vector3 movementDirection;
+    private bool shouldJump;
+    private Quaternion targetRotation;
+
     // Use this for initialization
     void Start()
     {
         playerController = GetComponent<PlayerController>();
-        direction = new Vector3((float) (Random.value * scale - scale / 2), 0,
-            (float) (Random.value * scale - scale / 2));
+
+        movementDirection = new Vector3(1, 0, 0);
+        shouldJump = false;
+        targetRotation = Quaternion.Euler(0, 180, 0);
     }
 
     // Update is called once per frame
     void Update()
     {
-        frames++;
-        frames %= delta;
-        if (frames == 0)
+        playerController.SetMovement(movementDirection, shouldJump, targetRotation);
+
+        if (Time.time > nextChangeTime)
         {
-            direction = new Vector3((float) (Random.value * scale - scale / 2), 0,
-                (float) (Random.value * scale - scale / 2));
+            nextChangeTime += changePeriod;
+
+            // Generate new random values
+            movementDirection = new Vector3(Random.Range(-1, 2), 0, Random.Range(-1, 2));
+            shouldJump = false;
+            targetRotation = Quaternion.Euler(0, Random.Range(0, 360), 0);
         }
-
-        transform.position += direction;
-
     }
     
-    private void OnCollisionEnter(Collision other)
-    {
-        if (other.gameObject.GetComponent<BulletController>())
-        {
-            if (other.gameObject.GetComponent<BulletController>().parentLevel == playerController.GetLevel()) {
-                Explode();
-            }
-        }
-    }
+    //private void OnCollisionEnter(Collision other)
+    //{
+    //    if (other.gameObject.GetComponent<BulletController>())
+    //    {
+    //        if (other.gameObject.GetComponent<BulletController>().parentLevel == playerController.GetLevel()) {
+    //            Explode();
+    //        }
+    //    }
+    //}
 
-    void Explode()
-    {
-        ParticleSystem explosion = GetComponent<ParticleSystem>();
-        explosion.Play();
-        Destroy(gameObject, explosion.main.duration);
-        // GameController.enemies -= 1;
-        // GameController.spawnEnemy = true;
-    }
-
-    public PlayerLevel GetLevel()
-    {
-        return playerController.GetLevel();
-    }
-
-    // public void SetLevel(PlayerLevel level)
-    // {
-    //     playerController.SetLevel(level);
-    // }
+    //void Explode()
+    //{
+    //    ParticleSystem explosion = GetComponent<ParticleSystem>();
+    //    explosion.Play();
+    //    Destroy(gameObject, explosion.main.duration);
+    //    // GameController.enemies -= 1;
+    //    // GameController.spawnEnemy = true;
+    //}
 }

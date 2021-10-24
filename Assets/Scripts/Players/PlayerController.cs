@@ -22,13 +22,9 @@ public class PlayerController : MonoBehaviour
     public CinemachineVirtualCamera virtualCamera;
 
     // Fields for player controller sub-scripts to effect movement
-    [HideInInspector]
-    /// <summary>An input vector for which direction the player should be moving.</summary>
-    public Vector3 movementInput;
-    [HideInInspector]
-    public bool shouldJump;
-    [HideInInspector]
-    public Quaternion targetRotation;
+    private Vector3 movementInput;
+    private bool shouldJump;
+    private Quaternion targetRotation;
 
     private Vector3 playerVelocity;
     private bool groundedPlayer;
@@ -58,19 +54,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public PlayerLevel GetLevel()
-    {
-        return playerModel.level;
-    }
-
-    public void LevelUp(PlayerLevel level)
-    {
-        if (playerModel.level == level)
-        {
-            playerModel.LevelUp();
-        }
-    }
-
     // Update function
     // These values are dependent on the input, set by
 
@@ -94,5 +77,25 @@ public class PlayerController : MonoBehaviour
 
         // Rotate player towards target rotation
         transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+    }
+
+    public void SetMovement(Vector3 movementInput, bool shouldJump, Quaternion targetRotation)
+    {
+        this.movementInput = movementInput;
+        this.shouldJump = shouldJump;
+        this.targetRotation = targetRotation;
+    }
+
+    public PlayerLevel GetLevel()
+    {
+        return playerModel.level;
+    }
+
+    public void LevelUp(PlayerLevel level)
+    {
+        if (playerModel.level == level)
+        {
+            playerModel.LevelUp();
+        }
     }
 }
