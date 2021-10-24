@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Cinemachine;
 
 [RequireComponent(typeof(PlayerModel), typeof(PlayerInput))]
 public class PlayerController : MonoBehaviour
@@ -18,6 +19,9 @@ public class PlayerController : MonoBehaviour
     public Transform barrelTransform;
     [SerializeField]
     public Transform bulletParent;
+    [SerializeField]
+    public CinemachineVirtualCamera virtualCamera;
+
 
     public static GameObject cpu;
 

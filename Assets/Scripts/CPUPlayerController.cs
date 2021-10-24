@@ -42,7 +42,9 @@ public class CPUPlayerController : MonoBehaviour
     {
         if (other.gameObject.GetComponent<BulletController>())
         {
-            Explode();
+            if (other.gameObject.GetComponent<BulletController>().parentLevel == playerController.GetLevel()) {
+                Explode();
+            }
         }
     }
 

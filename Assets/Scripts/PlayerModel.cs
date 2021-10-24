@@ -12,7 +12,7 @@ public class PlayerModel : MonoBehaviour
         Tuple.Create((byte)236, (byte)77, (byte)134),
         Tuple.Create((byte)94, (byte)221, (byte)93),
         Tuple.Create((byte)71, (byte)138, (byte)255),
-        Tuple.Create((byte)236, (byte)77, (byte)134),
+        Tuple.Create((byte)230, (byte)116, (byte)81),
         Tuple.Create((byte)255, (byte)248, (byte)0),
         Tuple.Create((byte)255, (byte)141, (byte)230),
         Tuple.Create((byte)145, (byte)57, (byte)255),
@@ -23,6 +23,20 @@ public class PlayerModel : MonoBehaviour
         Tuple.Create((byte)255, (byte)0, (byte)80)
     };
     
+    private Vector3[] scales = new Vector3[] {
+        new Vector3(1.0f,1.0f,1.0f),
+        new Vector3(1.25f,1.25f,1.25f),
+        new Vector3(1.5f,1.5f,1.5f),
+        new Vector3(1.75f,1.75f,1.75f),
+        new Vector3(2.0f,2.0f,2.0f),
+        new Vector3(2.25f,2.25f,2.25f),
+        new Vector3(2.5f,2.5f,2.5f),
+        new Vector3(2.75f,2.75f,2.75f),
+        new Vector3(3.0f,3.0f,3.0f),
+        new Vector3(3.25f,3.25f,3.25f),
+        new Vector3(3.5f,3.5f,3.5f),
+        new Vector3(3.75f,3.75f,3.75f)
+    };
     
     
     public PlayerType playerType;
@@ -47,7 +61,7 @@ public class PlayerModel : MonoBehaviour
         }
         
         SetMaterial();
-        
+        SetScale();
     }
 
     // Update is called once per frame
@@ -63,6 +77,11 @@ public class PlayerModel : MonoBehaviour
         Color32 color = new Color32(red, green, blue, (byte)255);
         meshrenderer.material.color = color;
     }
+
+    void SetScale() {
+        Vector3 scale = scales[(int) level];
+        transform.localScale = scale;
+    }
     
     // public void SetLevel(PlayerLevel newLevel)
     // {
@@ -76,8 +95,9 @@ public class PlayerModel : MonoBehaviour
         if (playerType == PlayerType.human && level < PlayerLevel.Level2048)
         {
             level += 1;
+            print("Leveled up to " + level);
             SetMaterial();
-            // GameController.currentLevel = level;
+            SetScale();
             return true;
         }
 

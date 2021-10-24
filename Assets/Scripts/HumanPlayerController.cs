@@ -61,6 +61,7 @@ public class HumanPlayerController : MonoBehaviour
         RaycastHit hit;
         GameObject bullet = GameObject.Instantiate(playerController.bulletPrefab, playerController.barrelTransform.position, Quaternion.identity, playerController.bulletParent);
         BulletController bulletController = bullet.GetComponent<BulletController>();
+        bulletController.parentLevel = playerModel.level;
         if (Physics.Raycast(cameraTransform.position, cameraTransform.forward, out hit, Mathf.Infinity))
         {
             bulletController.target = hit.point;

@@ -9,6 +9,7 @@ public class BulletController : MonoBehaviour
 
     public Vector3 target { get; set; }
     public bool hit { get; set; }
+    public PlayerLevel parentLevel;
 
     private void OnEnable()
     {
