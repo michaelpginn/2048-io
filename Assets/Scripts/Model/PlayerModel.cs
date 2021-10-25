@@ -8,6 +8,8 @@ public class PlayerModel : MonoBehaviour
 {
     public PlayerType playerType;
     public PlayerLevel level;
+    public int maxHealth;
+    public int currentHealth;
 
     // Material of the player
     private MeshRenderer meshRenderer;
@@ -29,17 +31,28 @@ public class PlayerModel : MonoBehaviour
         
         SetMaterial();
         SetScale();
+        SetHealth();
     }
 
 
-    // Changes the color of the material when player created / levels up 
+    /// <summary>Changes the color of the material when player created / levels up</summary>
     private void SetMaterial()
     {
         meshRenderer.material.color = level.GetColor();
     }
 
+    /// <summary>Changes the size of the player when player created / levels up</summary>
     private void SetScale() {
         transform.localScale = level.GetScale();
+    }
+
+    /// <summary>Sets the health of the player to full health for their level</summary>
+    private void SetHealth()
+    {
+        // The exponent of the player's level, e.g. 2 for level4.
+        var levelExponent = ((int)level) + 1;
+        maxHealth = levelExponent * (int)(Math.Pow(2, (double)levelExponent));
+        currentHealth = maxHealth;
     }
 
     /// <summary> Levels up a player to the next level, if possible. </summary>
@@ -53,6 +66,7 @@ public class PlayerModel : MonoBehaviour
             print("Leveled up to " + level);
             SetMaterial();
             SetScale();
+            SetHealth();
             return true;
         }
 
