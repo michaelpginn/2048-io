@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 8470156219997722373}
   - component: {fileID: 8470156219997722372}
   - component: {fileID: 8470156219997722379}
+  - component: {fileID: 711688610855111422}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -96,7 +97,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8470156219997722382}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
@@ -115,6 +116,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerType: 0
   level: 0
+  maxHealth: 0
+  currentHealth: 0
 --- !u!114 &8470156219997722373
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -183,9 +186,22 @@ MonoBehaviour:
   barrelTransform: {fileID: 8470156220636439290}
   bulletParent: {fileID: 0}
   virtualCamera: {fileID: 0}
-  movementInput: {x: 0, y: 0, z: 0}
-  shouldJump: 0
-  targetRotation: {x: 0, y: 0, z: 0, w: 0}
+--- !u!54 &711688610855111422
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8470156219997722382}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 1
+  m_Constraints: 126
+  m_CollisionDetection: 0
 --- !u!1 &8470156220636439289
 GameObject:
   m_ObjectHideFlags: 0

@@ -98,4 +98,12 @@ public class PlayerController : MonoBehaviour
             playerModel.LevelUp();
         }
     }
+
+    public int GetHealth() {
+        return playerModel.currentHealth;
+    }
+
+    public void DecrementHealth() {
+        playerModel.currentHealth--;
+    }
 }

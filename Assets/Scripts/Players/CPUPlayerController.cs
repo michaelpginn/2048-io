@@ -39,22 +39,35 @@ public class CPUPlayerController : MonoBehaviour
         }
     }
     
-    //private void OnCollisionEnter(Collision other)
-    //{
-    //    if (other.gameObject.GetComponent<BulletController>())
-    //    {
-    //        if (other.gameObject.GetComponent<BulletController>().parentLevel == playerController.GetLevel()) {
-    //            Explode();
-    //        }
-    //    }
-    //}
+    private void OnCollisionEnter(Collision other)
+    {
+       if (other.gameObject.GetComponent<BulletController>())
+       {
+           playerController.DecrementHealth();
+           print("CPU health " + playerController.GetHealth());
+           if (playerController.GetHealth() == 0) {
+               Explode();
+           }
+        //    if (other.gameObject.GetComponent<BulletController>().parentLevel == playerController.GetLevel()) {
+        //        Explode();
+        //    }
+       }
+    }
 
-    //void Explode()
-    //{
-    //    ParticleSystem explosion = GetComponent<ParticleSystem>();
-    //    explosion.Play();
-    //    Destroy(gameObject, explosion.main.duration);
-    //    // GameController.enemies -= 1;
-    //    // GameController.spawnEnemy = true;
-    //}
+    public PlayerLevel GetLevel() {
+        return playerController.GetLevel();
+    }
+
+    public int GetHealth() {
+        return playerController.GetHealth();
+    }
+
+    void Explode()
+    {
+       ParticleSystem explosion = GetComponent<ParticleSystem>();
+       explosion.Play();
+       Destroy(gameObject, explosion.main.duration);
+       // GameController.enemies -= 1;
+       // GameController.spawnEnemy = true;
+    }
 }

@@ -56,11 +56,14 @@ public class HumanPlayerController : MonoBehaviour
             bulletController.hit = true;
 
             CPUPlayerController enemy = hit.collider.gameObject.GetComponent<CPUPlayerController>();
-            //if (enemy != null)
-            //{
-            //    PlayerLevel enemyLevel = enemy.GetLevel();
-            //    playerController.LevelUp(enemyLevel);
-            //}
+            if (enemy != null)
+            {
+               PlayerLevel enemyLevel = enemy.GetLevel();
+               int enemyHealth = enemy.GetHealth();
+               if (enemyHealth <= 0) {
+                   playerController.LevelUp(enemyLevel);
+               }
+            }
         }
         else
         {
@@ -74,7 +77,6 @@ public class HumanPlayerController : MonoBehaviour
         // Update playerController input values based on input
         Vector2 input = moveAction.ReadValue<Vector2>();
         Vector3 move = new Vector3(input.x, 0, input.y);
-        print(input.x);
         move = move.x * cameraTransform.right.normalized + move.z * cameraTransform.forward.normalized;
         move.y = 0f;
 
