@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-using UnityEditor.UI;
+using UnityEditor;
 
 public class CPUPlayerController : MonoBehaviour
 {
