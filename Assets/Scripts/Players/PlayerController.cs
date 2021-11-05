@@ -95,6 +95,7 @@ public class PlayerController : MonoBehaviour
     {
         if (playerModel.level == level)
         {
+            print("Player model level " + playerModel.level);
             playerModel.LevelUp();
         }
     }
