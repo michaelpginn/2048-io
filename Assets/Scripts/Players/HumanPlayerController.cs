@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using TMPro;
+using UnityEngine;
 using UnityEngine.InputSystem;
 
 // Starter code inspired by https://www.youtube.com/watch?v=SeBEvM2zMpY
@@ -7,6 +8,9 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(CharacterController), typeof(PlayerInput))]
 public class HumanPlayerController : MonoBehaviour
 {
+    //Outlets
+    public TextMeshPro side;
+    
     private PlayerController playerController;
     private PlayerInput playerInput;
 
@@ -23,6 +27,7 @@ public class HumanPlayerController : MonoBehaviour
 
     private void Awake()
     {
+        side = GetComponentInChildren<TextMeshPro>();
         playerModel = GetComponent<PlayerModel>();
         playerController = GetComponent<PlayerController>();
         playerInput = GetComponent<PlayerInput>();
@@ -70,6 +75,8 @@ public class HumanPlayerController : MonoBehaviour
                if (enemyHealth <= 0) {
                    print(enemyLevel);
                    playerController.LevelUp(enemyLevel);
+                   var sideText = (int) Mathf.Pow(2f, (int) playerController.GetLevel() + 1);
+                   side.text = sideText.ToString();
                }
             }
         }
