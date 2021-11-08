@@ -67,6 +67,8 @@ public class PlayerModel : MonoBehaviour
             SetMaterial();
             SetScale();
             SetHealth();
+            GameController.currentLevel = level;
+            GameController.instance.UpdateScore();
             return true;
         }
 
