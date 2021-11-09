@@ -56,17 +56,17 @@ public class HumanPlayerController : MonoBehaviour
         print(bullet);
         BulletController bulletController = bullet.GetComponent<BulletController>();
         bulletController.parentLevel = playerModel.level;
-        print("shooting");
+        //print("shooting");
         if (Physics.Raycast(cameraTransform.position, cameraTransform.forward, out hit, Mathf.Infinity))
         {
             bulletController.target = hit.point;
             bulletController.hit = true;
 
-            print("hit");
-            CPUPlayerController enemy = hit.collider.gameObject.GetComponent<CPUPlayerController>();
-            print(hit.collider);
-            print(hit.collider.gameObject);
-            print(enemy);
+            // print("hit");
+            CPUPlayerController enemy = hit.collider.GetComponent<CPUPlayerController>();
+            print("collider " + hit.collider);
+            //print("game object " + hit.collider.gameObject);
+            print("ENEMY " + enemy);
             if (enemy != null)
             {
                PlayerLevel enemyLevel = enemy.GetLevel();
