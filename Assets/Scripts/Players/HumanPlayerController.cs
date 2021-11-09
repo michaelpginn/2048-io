@@ -76,6 +76,7 @@ public class HumanPlayerController : MonoBehaviour
                    print(enemyLevel);
                    playerController.LevelUp(enemyLevel);
                    var sideText = (int) Mathf.Pow(2f, (int) playerController.GetLevel() + 1);
+                    print(sideText.ToString());
                    side.text = sideText.ToString();
                }
             }
