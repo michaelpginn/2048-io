@@ -1939,6 +1939,10 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8470156219997722374, guid: 953c56c129b6b42388c42ae3379145c0, type: 3}
+      propertyPath: playerType
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8470156219997722374, guid: 953c56c129b6b42388c42ae3379145c0, type: 3}
       propertyPath: currentHealth
       value: 2
       objectReference: {fileID: 0}
