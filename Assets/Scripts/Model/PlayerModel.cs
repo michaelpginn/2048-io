@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -8,8 +6,8 @@ public class PlayerModel : MonoBehaviour
 {
     public PlayerType playerType;
     public PlayerLevel level;
-    public int maxHealth;
-    public int currentHealth;
+    private int maxHealth;
+    private int currentHealth;
 
     // Material of the player
     private MeshRenderer meshRenderer;
@@ -31,7 +29,7 @@ public class PlayerModel : MonoBehaviour
         
         SetMaterial();
         SetScale();
-        SetHealth();
+        SetHealthFull();
     }
 
 
@@ -46,13 +44,42 @@ public class PlayerModel : MonoBehaviour
         transform.localScale = level.GetScale();
     }
 
-    /// <summary>Sets the health of the player to full health for their level</summary>
-    private void SetHealth()
+    public int GetCurrentHealth()
+    {
+        return currentHealth;
+    }
+
+    public int GetMaxHealth()
+    {
+        return maxHealth;
+    }
+
+    /// <summary>Sets the health of the player to full health for their level.</summary>
+    private void SetHealthFull()
     {
         // The exponent of the player's level, e.g. 2 for level4.
         var levelExponent = ((int)level) + 1;
         maxHealth = levelExponent * (int)(Math.Pow(2, (double)levelExponent));
         currentHealth = maxHealth;
+    }
+
+    /// <summary>Decrements the health of a player by a given amount of damage.</summary>
+    /// <returns>True if the player is still alive (health is greater than 0), and false if they have no more health.</returns>
+    public bool DecrementHealth(int damage)
+    {
+        if (currentHealth <= damage)
+        {
+            currentHealth = 0;
+            return false;
+        }
+        currentHealth -= damage;
+        return true;
+    }
+
+    /// <returns>The amount of a damage the player does. It is equal to their level numerical value, e.g. a level 4 player does 4 damage.</returns>
+    public int GetDamageAmount()
+    {
+        return level.GetNumericalValue();
     }
 
     /// <summary> Levels up a player to the next level, if possible. </summary>
@@ -66,9 +93,7 @@ public class PlayerModel : MonoBehaviour
             print("Leveled up to " + level);
             SetMaterial();
             SetScale();
-            SetHealth();
-            GameController.currentLevel = level;
-            GameController.instance.UpdateScore();
+            SetHealthFull();
             return true;
         }
 

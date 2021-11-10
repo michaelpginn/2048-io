@@ -32,9 +32,9 @@ public static class PlayerLevelMethods
         { PlayerLevel.Level512,     new Color32(0, 159, 79, 255) },
         { PlayerLevel.Level1024,    new Color32(83, 255, 231, 255) },
         { PlayerLevel.Level2048,    new Color32(217, 0, 80, 255) },
-        //Tuple.Create((byte)255, (byte)0, (byte)80)
     };
 
+    /// <summary> Returns the color for a cube of the given level. </summary>
     public static Color32 GetColor(this PlayerLevel level)
     {
         return colors[level];
@@ -55,9 +55,16 @@ public static class PlayerLevelMethods
         { PlayerLevel.Level2048,    3.5f },
     };
 
+    /// <summary> Returns the scale for a cube of the given level. </summary>
     public static Vector3 GetScale(this PlayerLevel level)
     {
         var scale = scales[level];
         return new Vector3(scale, scale, scale);
+    }
+
+    /// <summary> Returns the level as its numeric value, i.e. PlayerLevel.Level256 returns 256 as an int. </summary>
+    public static int GetNumericalValue(this PlayerLevel level)
+    {
+        return (int)Mathf.Pow(2f, (int)level + 1);
     }
 }

@@ -4,22 +4,19 @@ using UnityEngine;
 
 public class BulletController : MonoBehaviour
 {
-    private float speed = 50f;
+    private float speed = 75f;
     private float timeToDestroy = 3f;
 
+    [HideInInspector]
     public Vector3 target { get; set; }
+    [HideInInspector]
     public bool hit { get; set; }
-    public PlayerLevel parentLevel;
+    [HideInInspector]
+    public PlayerController originPlayerController;
 
     private void OnEnable()
     {
         Destroy(gameObject, timeToDestroy);
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
     }
 
     // Update is called once per frame
@@ -34,7 +31,6 @@ public class BulletController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        ContactPoint contact = collision.GetContact(0);
         Destroy(gameObject);
     }
 }

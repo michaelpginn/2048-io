@@ -8,9 +8,6 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(CharacterController), typeof(PlayerInput))]
 public class HumanPlayerController : MonoBehaviour
 {
-    //Outlets
-    public TextMeshPro side;
-    
     private PlayerController playerController;
     private PlayerInput playerInput;
 
@@ -27,7 +24,6 @@ public class HumanPlayerController : MonoBehaviour
 
     private void Awake()
     {
-        side = GetComponentInChildren<TextMeshPro>();
         playerModel = GetComponent<PlayerModel>();
         playerController = GetComponent<PlayerController>();
         playerInput = GetComponent<PlayerInput>();
@@ -51,41 +47,7 @@ public class HumanPlayerController : MonoBehaviour
 
     private void ShootGun()
     {
-        RaycastHit hit;
-        GameObject bullet = GameObject.Instantiate(playerController.bulletPrefab, playerController.barrelTransform.position, Quaternion.identity, playerController.bulletParent);
-        print(bullet);
-        BulletController bulletController = bullet.GetComponent<BulletController>();
-        bulletController.parentLevel = playerModel.level;
-        //print("shooting");
-        if (Physics.Raycast(cameraTransform.position, cameraTransform.forward, out hit, Mathf.Infinity))
-        {
-            bulletController.target = hit.point;
-            bulletController.hit = true;
-
-            // print("hit");
-            CPUPlayerController enemy = hit.collider.GetComponent<CPUPlayerController>();
-            print("collider " + hit.collider);
-            //print("game object " + hit.collider.gameObject);
-            print("ENEMY " + enemy);
-            if (enemy != null)
-            {
-               PlayerLevel enemyLevel = enemy.GetLevel();
-               int enemyHealth = enemy.GetHealth();
-               print("enemy health " + enemyHealth);
-               if (enemyHealth <= 0) {
-                   print(enemyLevel);
-                   playerController.LevelUp(enemyLevel);
-                   var sideText = (int) Mathf.Pow(2f, (int) playerController.GetLevel() + 1);
-                    print(sideText.ToString());
-                   side.text = sideText.ToString();
-               }
-            }
-        }
-        else
-        {
-            bulletController.target = cameraTransform.position + cameraTransform.forward * 25f;
-            bulletController.hit = false;
-        }
+        playerController.Shoot(cameraTransform.position, cameraTransform.forward);
     }
 
     void Update()

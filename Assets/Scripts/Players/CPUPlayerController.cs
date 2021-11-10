@@ -15,14 +15,11 @@ public class CPUPlayerController : MonoBehaviour
     private bool shouldJump;
     private Quaternion targetRotation;
     
-    //Outlets
-    public TextMeshPro[] sides;
     
     // Use this for initialization
     void Start()
     {
         playerController = GetComponent<PlayerController>();
-        sides = GetComponentsInChildren<TextMeshPro>();
 
         movementDirection = new Vector3(1, 0, 0);
         shouldJump = false;
@@ -43,43 +40,5 @@ public class CPUPlayerController : MonoBehaviour
             shouldJump = false;
             targetRotation = Quaternion.Euler(0, Random.Range(0, 360), 0);
         }
-        
-        foreach (TextMeshPro side in sides)
-        {
-            var sideText = (int) Mathf.Pow(2f, (int) playerController.GetLevel() + 1);
-            side.text = sideText.ToString();
-        }
-    }
-    
-    private void OnCollisionEnter(Collision other)
-    {
-       if (other.gameObject.GetComponent<BulletController>())
-       {
-           playerController.DecrementHealth();
-           print("CPU health " + playerController.GetHealth());
-           if (playerController.GetHealth() <= 0) {
-               Explode();
-           }
-        // if (other.gameObject.GetComponent<BulletController>().parentLevel == playerController.GetLevel()) {
-        //     Explode();
-        // }
-       }
-    }
-
-    public PlayerLevel GetLevel() {
-        return playerController.GetLevel();
-    }
-
-    public int GetHealth() {
-        return playerController.GetHealth();
-    }
-
-    void Explode()
-    {
-       ParticleSystem explosion = GetComponent<ParticleSystem>();
-       explosion.Play();
-       Destroy(gameObject, explosion.main.duration);
-       // GameController.enemies -= 1;
-       // GameController.spawnEnemy = true;
     }
 }
