@@ -28,7 +28,7 @@ public class PlayerController : MonoBehaviour
     private Quaternion targetRotation;
 
     private Vector3 playerVelocity;
-    private bool groundedPlayer;
+    private bool isDead = false;
 
     // Controls movement
     private CharacterController characterController;
@@ -63,8 +63,14 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        if (isDead)
+        {
+            // We are in the process of exploding, no moving.
+            return;
+        }
+
         // These values are dependent on the input, set by SetMovement.
-        groundedPlayer = characterController.isGrounded;
+        bool groundedPlayer = characterController.isGrounded;
         if (groundedPlayer && playerVelocity.y < 0)
         {
             playerVelocity.y = 0f;
@@ -86,6 +92,7 @@ public class PlayerController : MonoBehaviour
 
     private void Explode()
     {
+        isDead = true;
         ParticleSystem explosion = GetComponent<ParticleSystem>();
         explosion.Play();
         Destroy(gameObject, explosion.main.duration + 2);
