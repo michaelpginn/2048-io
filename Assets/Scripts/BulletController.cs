@@ -30,6 +30,8 @@ public class BulletController : MonoBehaviour
         }
     }
 
+    
+
     private void OnCollisionEnter(Collision collision)
     {
         print("Destroy bullet");
