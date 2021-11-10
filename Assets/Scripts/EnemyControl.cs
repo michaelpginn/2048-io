@@ -4,26 +4,27 @@ using UnityEngine;
 
 public class EnemyControl : MonoBehaviour
 {
-    public GameObject theEnemy;
+    public GameObject enemyPlayerPrefab;
     public int x;
     public int z;
-    public int countenemies;
+    public int enemyCount;
 
     // Start is called before the first frame update
     void Start()
     {
+        enemyPlayerPrefab.GetComponent<PlayerModel>().playerType = PlayerType.CPU;
         StartCoroutine(EnemyDrop());
     }
 
     IEnumerator EnemyDrop()
     {
-        while (countenemies < 20)
+        while (enemyCount < 20)
         {
             x = Random.Range(-100, 100);
             z = Random.Range(-100, 100);
-            Instantiate(theEnemy, new Vector3(x, 43, z), Quaternion.identity);
+            Instantiate(enemyPlayerPrefab, new Vector3(x, 43, z), Quaternion.identity);
             yield return new WaitForSeconds(0.1f);
-            countenemies += 1;
+            enemyCount += 1;
         }
     }
 }
