@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class BulletController : MonoBehaviour
 {
-    private float speed = 75f;
+    [SerializeField]
+    private float speed = 100f;
     private float timeToDestroy = 3f;
 
     [HideInInspector]
@@ -31,6 +32,7 @@ public class BulletController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        print("Destroy bullet");
         Destroy(gameObject);
     }
 }
