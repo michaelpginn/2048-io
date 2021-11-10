@@ -653,8 +653,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45b087c6eda2b4c15b496a05a463a49e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 981195511}
   scoreText: {fileID: 2089484916}
-  score: 0
 --- !u!1001 &534463486
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -891,7 +891,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8470156219997722373, guid: 953c56c129b6b42388c42ae3379145c0, type: 3}
   m_PrefabInstance: {fileID: 5956394875420283182}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 981195511}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
@@ -1015,6 +1015,11 @@ MonoBehaviour:
   m_CameraActivatedEvent:
     m_PersistentCalls:
       m_Calls: []
+--- !u!1 &981195511 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8470156219997722382, guid: 953c56c129b6b42388c42ae3379145c0, type: 3}
+  m_PrefabInstance: {fileID: 5956394875420283182}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1005080241
 GameObject:
   m_ObjectHideFlags: 0

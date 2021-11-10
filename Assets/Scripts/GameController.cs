@@ -9,13 +9,10 @@ public class GameController : MonoBehaviour
 {
     
     public static GameController instance;
-    public PlayerController playerController;
+    public GameObject player;
 
-    // Outlets
     public Text scoreText;
     
-
-    // Methods
     private void Awake()
     {
         instance = this;
@@ -23,6 +20,6 @@ public class GameController : MonoBehaviour
 
     private void Update()
     {
-        scoreText.text = "Level: " + playerController.GetLevel().GetNumericalValue().ToString();
+        scoreText.text = "Level: " + player.GetComponent<PlayerController>().GetLevel().GetNumericalValue().ToString();
     }
 }
