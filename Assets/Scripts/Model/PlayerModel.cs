@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using Random = UnityEngine.Random;
+using UnityEngine.UI;
 
 public class PlayerModel : MonoBehaviour
 {
@@ -8,6 +9,8 @@ public class PlayerModel : MonoBehaviour
     public PlayerLevel level;
     private int maxHealth;
     private int currentHealth;
+
+    public Image healthBar;
 
     // Material of the player
     private MeshRenderer meshRenderer;
@@ -61,6 +64,7 @@ public class PlayerModel : MonoBehaviour
         var levelExponent = ((int)level) + 1;
         maxHealth = levelExponent * (int)(Math.Pow(2, (double)levelExponent));
         currentHealth = maxHealth;
+        healthBar.fillAmount = (float)currentHealth / maxHealth;
     }
 
     /// <summary>Decrements the health of a player by a given amount of damage.</summary>
@@ -70,9 +74,11 @@ public class PlayerModel : MonoBehaviour
         if (currentHealth <= damage)
         {
             currentHealth = 0;
+            healthBar.fillAmount = 0;
             return false;
         }
         currentHealth -= damage;
+        healthBar.fillAmount = (float)currentHealth / maxHealth;
         return true;
     }
 
