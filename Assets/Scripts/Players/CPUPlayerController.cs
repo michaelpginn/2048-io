@@ -34,14 +34,21 @@ public class CPUPlayerController : MonoBehaviour
         if (Time.time > nextChangeTime)
         {
             nextChangeTime += changePeriod;
-            if (Vector3.Distance(HumanPlayerController.humanPlayerInstance.transform.position, transform.position) < 10) {
+            if (Vector3.Distance(HumanPlayerController.humanPlayerInstance.transform.position, transform.position) < 20) {
                 playerController.Shoot(transform.position, transform.forward);
+
+                movementDirection = (HumanPlayerController.humanPlayerInstance.transform.position - transform.position)/10;
+                movementDirection.y = 0;
+
+                targetRotation = Quaternion.LookRotation(movementDirection);
             }
 
-            // Generate new random values
-            movementDirection = new Vector3(Random.Range(-1, 2), 0, Random.Range(-1, 2));
-            shouldJump = false;
-            targetRotation = Quaternion.Euler(0, Random.Range(0, 360), 0);
+            else {
+                // Generate new random values
+                movementDirection = new Vector3(Random.Range(-1, 2), 0, Random.Range(-1, 2));
+                shouldJump = false;
+                targetRotation = Quaternion.Euler(0, Random.Range(0, 360), 0);
+            }
         }
     }
 }
