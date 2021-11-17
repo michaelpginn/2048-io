@@ -12,6 +12,7 @@ public class GameController : MonoBehaviour
     public GameObject player;
 
     public Text scoreText;
+    public Text healthText;
     
     private void Awake()
     {
@@ -20,6 +21,8 @@ public class GameController : MonoBehaviour
 
     private void Update()
     {
-        scoreText.text = "Level: " + player.GetComponent<PlayerController>().GetLevel().GetNumericalValue().ToString();
+        var level = player.GetComponent<PlayerController>().GetLevel();
+        scoreText.text = "Level: " + level.GetNumericalValue().ToString();
+        healthText.text = player.GetComponent<PlayerModel>().GetCurrentHealth() + "/" + player.GetComponent<PlayerModel>().GetMaxHealth();
     }
 }
