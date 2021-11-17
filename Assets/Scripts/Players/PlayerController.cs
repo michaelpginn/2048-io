@@ -118,6 +118,12 @@ public class PlayerController : MonoBehaviour
             PlayerController otherPlayer = hit.collider.GetComponent<PlayerController>();
             if (otherPlayer != null && !otherPlayer.isDead)
             {
+                // Show damage number
+                if (playerModel.playerType == PlayerType.human)
+                {
+                    GameController.instance.ShowDamageNumber(otherPlayer.transform.position, playerModel.GetDamageAmount());
+                }
+
                 var otherPlayerAlive = otherPlayer.DecrementHealth(playerModel.GetDamageAmount());
                 if (!otherPlayerAlive && otherPlayer.GetLevel() >= playerModel.level)
                 {

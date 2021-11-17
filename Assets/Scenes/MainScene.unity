@@ -844,7 +844,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 981195511}
+  damageNumberPrefab: {fileID: 471797211367258367, guid: 5b9232433e7e7490daae152d76245db5, type: 3}
+  thirdPCanvas: {fileID: 1225759417}
+  aimCanvas: {fileID: 1542180332}
   scoreText: {fileID: 2089484916}
+  healthText: {fileID: 77050271}
 --- !u!1001 &534463486
 PrefabInstance:
   m_ObjectHideFlags: 0
