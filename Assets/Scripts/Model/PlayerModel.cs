@@ -94,6 +94,7 @@ public class PlayerModel : MonoBehaviour
             SetMaterial();
             SetScale();
             SetHealthFull();
+            GameController.instance.UpdateScore();
             return true;
         }
 

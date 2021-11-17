@@ -29,6 +29,12 @@ public class CPUPlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (playerController.GetIsDead())
+        {
+            // We are in the process of exploding, no moving.
+            return;
+        }
+
         playerController.SetMovement(movementDirection, shouldJump, targetRotation);
 
         if (Time.time > nextChangeTime)

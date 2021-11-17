@@ -192,6 +192,9 @@ public class PlayerController : MonoBehaviour
         if (!isAlive)
         {
             Explode();
+            if (playerModel.playerType != PlayerType.human) {
+                GameController.instance.IncrementScore(this.GetLevel().GetNumericalValue());
+            }
         }
         return isAlive;
     }
@@ -208,5 +211,9 @@ public class PlayerController : MonoBehaviour
     public PlayerLevel GetLevel()
     {
         return playerModel.level;
+    }
+
+    public bool GetIsDead() {
+        return isDead;
     }
 }
