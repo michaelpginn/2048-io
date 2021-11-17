@@ -22,6 +22,9 @@ public class PlayerController : MonoBehaviour
     public Transform bulletParent;
     public CinemachineVirtualCamera virtualCamera;
     public CinemachineVirtualCamera aimCamera;
+    AudioSource audioSource;
+    public AudioClip shootSound;
+    public AudioClip explodeSound;
 
     // Fields for player controller sub-scripts to effect movement
     private Vector3 movementInput;
@@ -47,6 +50,7 @@ public class PlayerController : MonoBehaviour
     {
         playerModel = GetComponent<PlayerModel>();
         characterController = GetComponent<CharacterController>();
+        audioSource = GetComponent<AudioSource>();
         sides = GetComponentsInChildren<TextMeshPro>();
 
         // Add scripts based on whether the player is a user or CPU
@@ -94,6 +98,7 @@ public class PlayerController : MonoBehaviour
     private void Explode()
     {
         isDead = true;
+        audioSource.PlayOneShot(explodeSound);
         GetComponent<BoxCollider>().enabled = false;
         ParticleSystem explosion = GetComponent<ParticleSystem>();
         explosion.Play();
@@ -107,7 +112,7 @@ public class PlayerController : MonoBehaviour
         GameObject bullet = GameObject.Instantiate(bulletPrefab, barrelTransform.position, Quaternion.identity, bulletParent);
         BulletController bulletController = bullet.GetComponent<BulletController>();
         bulletController.originPlayerController = this;
-
+        audioSource.PlayOneShot(shootSound);
         if (Physics.Raycast(origin, direction, out hit, Mathf.Infinity))
         {
             // We have a hit
