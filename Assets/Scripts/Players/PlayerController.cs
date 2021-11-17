@@ -94,6 +94,7 @@ public class PlayerController : MonoBehaviour
     private void Explode()
     {
         isDead = true;
+        GetComponent<BoxCollider>().enabled = false;
         ParticleSystem explosion = GetComponent<ParticleSystem>();
         explosion.Play();
         Destroy(gameObject, explosion.main.duration + 2);
@@ -115,7 +116,7 @@ public class PlayerController : MonoBehaviour
 
             // Determine if it hit a player
             PlayerController otherPlayer = hit.collider.GetComponent<PlayerController>();
-            if (otherPlayer != null)
+            if (otherPlayer != null && !otherPlayer.isDead)
             {
                 var otherPlayerAlive = otherPlayer.DecrementHealth(playerModel.GetDamageAmount());
                 if (!otherPlayerAlive && otherPlayer.GetLevel() >= playerModel.level)
