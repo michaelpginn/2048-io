@@ -122,6 +122,11 @@ public class PlayerController : MonoBehaviour
                     // We have killed another player. If they were your level or higher, we should level up.
                     playerModel.LevelUp();
                     UpdateSideNumberDisplay();
+                    CinemachineComponentBase componentBase = virtualCamera.GetCinemachineComponent(CinemachineCore.Stage.Body);
+                    if (componentBase is CinemachineFramingTransposer)
+                    {
+                        (componentBase as CinemachineFramingTransposer).m_CameraDistance += 0.25f; 
+                    }
                 }
             }
         }
