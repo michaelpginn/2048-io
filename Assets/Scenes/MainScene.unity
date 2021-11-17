@@ -804,7 +804,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2908556985351080443, guid: 160a6e20eead942e7914fff7eec0814c, type: 3}
       propertyPath: m_RecenterTarget
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2908556985351080443, guid: 160a6e20eead942e7914fff7eec0814c, type: 3}
       propertyPath: m_VerticalAxis.Value
