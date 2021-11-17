@@ -21,6 +21,7 @@ public class PlayerController : MonoBehaviour
     public Transform barrelTransform;
     public Transform bulletParent;
     public CinemachineVirtualCamera virtualCamera;
+    public CinemachineVirtualCamera aimCamera;
 
     // Fields for player controller sub-scripts to effect movement
     private Vector3 movementInput;
@@ -122,11 +123,8 @@ public class PlayerController : MonoBehaviour
                     // We have killed another player. If they were your level or higher, we should level up.
                     playerModel.LevelUp();
                     UpdateSideNumberDisplay();
-                    CinemachineComponentBase componentBase = virtualCamera.GetCinemachineComponent(CinemachineCore.Stage.Body);
-                    if (componentBase is CinemachineFramingTransposer)
-                    {
-                        (componentBase as CinemachineFramingTransposer).m_CameraDistance += 0.25f; 
-                    }
+
+                    UpdateCameraForLevel();
                 }
             }
         }
@@ -134,6 +132,29 @@ public class PlayerController : MonoBehaviour
         {
             bulletController.target = origin + direction * 25f;
             bulletController.hit = false;
+        }
+    }
+
+    /// <summary>
+    /// Moves the cameras back so they look good for the block size
+    /// </summary>
+    private void UpdateCameraForLevel()
+    {
+        // Update the camera to be in the right place.
+        CinemachineComponentBase componentBase = virtualCamera.GetCinemachineComponent(CinemachineCore.Stage.Body);
+        if (componentBase is CinemachineFramingTransposer)
+        {
+            (componentBase as CinemachineFramingTransposer).m_CameraDistance += 1f;
+            (componentBase as CinemachineFramingTransposer).m_ScreenY += 0.04f;
+        }
+
+        CinemachineComponentBase aimCamComponentBase = aimCamera.GetCinemachineComponent(CinemachineCore.Stage.Body);
+        if (aimCamComponentBase is CinemachineFramingTransposer)
+        {
+            var transposer = aimCamComponentBase as CinemachineFramingTransposer;
+            transposer.m_CameraDistance += 0.35f;
+            transposer.m_ScreenY += 0.02f;
+            transposer.m_ScreenX -= 0.01f;
         }
     }
 
