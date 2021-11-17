@@ -17,6 +17,8 @@ public class HumanPlayerController : MonoBehaviour
     private InputAction jumpAction;
     private InputAction shootAction;
 
+    static public HumanPlayerController humanPlayerInstance;
+
     /// <summary>
     /// Stores essential information about the player such as their level and type
     /// </summary>
@@ -33,6 +35,7 @@ public class HumanPlayerController : MonoBehaviour
         shootAction = playerInput.actions["Shoot"];
 
         Cursor.lockState = CursorLockMode.Locked;
+        humanPlayerInstance = this;
     }
 
     private void OnEnable()

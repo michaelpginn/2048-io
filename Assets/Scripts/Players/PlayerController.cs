@@ -81,6 +81,7 @@ public class PlayerController : MonoBehaviour
             playerVelocity.y = 0f;
         }
 
+        
         characterController.Move(movementInput * Time.deltaTime * playerSpeed);
         // Changes the height position of the player..
         if (shouldJump && groundedPlayer)

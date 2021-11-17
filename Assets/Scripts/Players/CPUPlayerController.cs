@@ -34,6 +34,9 @@ public class CPUPlayerController : MonoBehaviour
         if (Time.time > nextChangeTime)
         {
             nextChangeTime += changePeriod;
+            if (Vector3.Distance(HumanPlayerController.humanPlayerInstance.transform.position, transform.position) < 10) {
+                playerController.Shoot(transform.position, transform.forward);
+            }
 
             // Generate new random values
             movementDirection = new Vector3(Random.Range(-1, 2), 0, Random.Range(-1, 2));

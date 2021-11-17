@@ -705,7 +705,7 @@ MonoBehaviour:
   gravityValue: -9.81
   rotationSpeed: 10
   bulletPrefab: {fileID: 3277973637912677366, guid: bcd882b1b175d46aabed38eb197632c1, type: 3}
-  barrelTransform: {fileID: 0}
+  barrelTransform: {fileID: 8470156220636439290}
   bulletParent: {fileID: 8470156220636439290}
   virtualCamera: {fileID: 0}
   aimCamera: {fileID: 0}
