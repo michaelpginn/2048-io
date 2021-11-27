@@ -29,16 +29,32 @@ public class CPUPlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (playerController.GetIsDead())
+        {
+            // We are in the process of exploding, no moving.
+            return;
+        }
+
         playerController.SetMovement(movementDirection, shouldJump, targetRotation);
 
         if (Time.time > nextChangeTime)
         {
             nextChangeTime += changePeriod;
+            if (Vector3.Distance(HumanPlayerController.humanPlayerInstance.transform.position, transform.position) < 20) {
+                playerController.Shoot(transform.position, transform.forward);
 
-            // Generate new random values
-            movementDirection = new Vector3(Random.Range(-1, 2), 0, Random.Range(-1, 2));
-            shouldJump = false;
-            targetRotation = Quaternion.Euler(0, Random.Range(0, 360), 0);
+                movementDirection = (HumanPlayerController.humanPlayerInstance.transform.position - transform.position)/10;
+                movementDirection.y = 0;
+
+                targetRotation = Quaternion.LookRotation(movementDirection);
+            }
+
+            else {
+                // Generate new random values
+                movementDirection = new Vector3(Random.Range(-1, 2), 0, Random.Range(-1, 2));
+                shouldJump = false;
+                targetRotation = Quaternion.Euler(0, Random.Range(0, 360), 0);
+            }
         }
     }
 }

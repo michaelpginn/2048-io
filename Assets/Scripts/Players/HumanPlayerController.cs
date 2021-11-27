@@ -1,6 +1,7 @@
 ﻿using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 // Starter code inspired by https://www.youtube.com/watch?v=SeBEvM2zMpY
 
@@ -16,6 +17,8 @@ public class HumanPlayerController : MonoBehaviour
     private InputAction moveAction; 
     private InputAction jumpAction;
     private InputAction shootAction;
+
+    static public HumanPlayerController humanPlayerInstance;
 
     /// <summary>
     /// Stores essential information about the player such as their level and type
@@ -33,6 +36,7 @@ public class HumanPlayerController : MonoBehaviour
         shootAction = playerInput.actions["Shoot"];
 
         Cursor.lockState = CursorLockMode.Locked;
+        humanPlayerInstance = this;
     }
 
     private void OnEnable()
@@ -63,5 +67,11 @@ public class HumanPlayerController : MonoBehaviour
         Quaternion targetRotation = Quaternion.Euler(0, targetAngle, 0);
 
         playerController.SetMovement(move, jumpAction.triggered, targetRotation);
+    }
+
+    void OnDestroy() {
+        // Load Death Scene
+        Cursor.lockState = CursorLockMode.None;
+        SceneManager.LoadScene("DeathScene", LoadSceneMode.Single);
     }
 }

@@ -623,7 +623,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: 'Welcome to 2018.io!
+  m_Text: 'Welcome to 2048.io!
 
 
     The goal of this game is to shoot other blocks
@@ -732,7 +732,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timerText: {fileID: 853587152}
-  timer: 20
+  timer: 10
 --- !u!1 &2051126094
 GameObject:
   m_ObjectHideFlags: 0

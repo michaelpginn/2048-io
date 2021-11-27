@@ -21,6 +21,10 @@ public class PlayerController : MonoBehaviour
     public Transform barrelTransform;
     public Transform bulletParent;
     public CinemachineVirtualCamera virtualCamera;
+    public CinemachineVirtualCamera aimCamera;
+    AudioSource audioSource;
+    public AudioClip shootSound;
+    public AudioClip explodeSound;
 
     // Fields for player controller sub-scripts to effect movement
     private Vector3 movementInput;
@@ -46,6 +50,7 @@ public class PlayerController : MonoBehaviour
     {
         playerModel = GetComponent<PlayerModel>();
         characterController = GetComponent<CharacterController>();
+        audioSource = GetComponent<AudioSource>();
         sides = GetComponentsInChildren<TextMeshPro>();
 
         // Add scripts based on whether the player is a user or CPU
@@ -76,6 +81,7 @@ public class PlayerController : MonoBehaviour
             playerVelocity.y = 0f;
         }
 
+        
         characterController.Move(movementInput * Time.deltaTime * playerSpeed);
         // Changes the height position of the player..
         if (shouldJump && groundedPlayer)
@@ -93,6 +99,8 @@ public class PlayerController : MonoBehaviour
     private void Explode()
     {
         isDead = true;
+        audioSource.PlayOneShot(explodeSound);
+        GetComponent<BoxCollider>().enabled = false;
         ParticleSystem explosion = GetComponent<ParticleSystem>();
         explosion.Play();
         Destroy(gameObject, explosion.main.duration + 2);
@@ -105,7 +113,7 @@ public class PlayerController : MonoBehaviour
         GameObject bullet = GameObject.Instantiate(bulletPrefab, barrelTransform.position, Quaternion.identity, bulletParent);
         BulletController bulletController = bullet.GetComponent<BulletController>();
         bulletController.originPlayerController = this;
-
+        audioSource.PlayOneShot(shootSound);
         if (Physics.Raycast(origin, direction, out hit, Mathf.Infinity))
         {
             // We have a hit
@@ -114,14 +122,22 @@ public class PlayerController : MonoBehaviour
 
             // Determine if it hit a player
             PlayerController otherPlayer = hit.collider.GetComponent<PlayerController>();
-            if (otherPlayer != null)
+            if (otherPlayer != null && !otherPlayer.isDead)
             {
+                // Show damage number
+                if (playerModel.playerType == PlayerType.human)
+                {
+                    GameController.instance.ShowDamageNumber(otherPlayer.transform.position, playerModel.GetDamageAmount());
+                }
+
                 var otherPlayerAlive = otherPlayer.DecrementHealth(playerModel.GetDamageAmount());
                 if (!otherPlayerAlive && otherPlayer.GetLevel() >= playerModel.level)
                 {
                     // We have killed another player. If they were your level or higher, we should level up.
                     playerModel.LevelUp();
                     UpdateSideNumberDisplay();
+
+                    UpdateCameraForLevel();
                 }
             }
         }
@@ -129,6 +145,29 @@ public class PlayerController : MonoBehaviour
         {
             bulletController.target = origin + direction * 25f;
             bulletController.hit = false;
+        }
+    }
+
+    /// <summary>
+    /// Moves the cameras back so they look good for the block size
+    /// </summary>
+    private void UpdateCameraForLevel()
+    {
+        // Update the camera to be in the right place.
+        CinemachineComponentBase componentBase = virtualCamera.GetCinemachineComponent(CinemachineCore.Stage.Body);
+        if (componentBase is CinemachineFramingTransposer)
+        {
+            (componentBase as CinemachineFramingTransposer).m_CameraDistance += 1f;
+            (componentBase as CinemachineFramingTransposer).m_ScreenY += 0.04f;
+        }
+
+        CinemachineComponentBase aimCamComponentBase = aimCamera.GetCinemachineComponent(CinemachineCore.Stage.Body);
+        if (aimCamComponentBase is CinemachineFramingTransposer)
+        {
+            var transposer = aimCamComponentBase as CinemachineFramingTransposer;
+            transposer.m_CameraDistance += 0.35f;
+            transposer.m_ScreenY += 0.02f;
+            transposer.m_ScreenX -= 0.01f;
         }
     }
 
@@ -153,6 +192,9 @@ public class PlayerController : MonoBehaviour
         if (!isAlive)
         {
             Explode();
+            if (playerModel.playerType != PlayerType.human) {
+                GameController.instance.IncrementScore(this.GetLevel().GetNumericalValue());
+            }
         }
         return isAlive;
     }
@@ -169,5 +211,9 @@ public class PlayerController : MonoBehaviour
     public PlayerLevel GetLevel()
     {
         return playerModel.level;
+    }
+
+    public bool GetIsDead() {
+        return isDead;
     }
 }
