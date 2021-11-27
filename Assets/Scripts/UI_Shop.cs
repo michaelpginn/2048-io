@@ -22,16 +22,20 @@ public class UI_Shop : MonoBehaviour
         shoptemplate = container.Find("ShopItemTemp");
      //   shoptemplate.gameObject.SetActive(false); 
 
-    } 
-    private void CreateItemButton(string name)
+    }
+    private void CreateItemButton(string name, int position)
     {
         Transform shopItemTransform = Instantiate(shoptemplate, container);
+        RectTransform shopItemRectTransform = shopItemTransform.GetComponent<RectTransform>();
+
+        float shopHeight = 90f;
+        shopItemRectTransform.anchoredPosition = new Vector2(0, -shopHeight * position);
         shopItemTransform.Find("nameText").GetComponent<TMPro.TextMeshProUGUI>().SetText(name);
     }
 
     private void Start()
     {
-        CreateItemButton("Gun");
-        CreateItemButton("Armor");
+        CreateItemButton("Gun" , 1);
+        CreateItemButton("Armor", 2);
     }
 }
