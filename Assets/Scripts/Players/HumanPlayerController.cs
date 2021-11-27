@@ -11,7 +11,7 @@ public class HumanPlayerController : MonoBehaviour
 {
     private PlayerController playerController;
     private PlayerInput playerInput;
-
+    public static HumanPlayerController instance; 
     private Transform cameraTransform;
 
     private InputAction moveAction; 
@@ -67,6 +67,8 @@ public class HumanPlayerController : MonoBehaviour
         Quaternion targetRotation = Quaternion.Euler(0, targetAngle, 0);
 
         playerController.SetMovement(move, jumpAction.triggered, targetRotation);
+
+       
     }
 
     void OnDestroy() {
@@ -74,4 +76,6 @@ public class HumanPlayerController : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
         SceneManager.LoadScene("DeathScene", LoadSceneMode.Single);
     }
+
+   
 }

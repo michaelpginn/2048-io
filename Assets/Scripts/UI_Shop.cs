@@ -4,8 +4,19 @@ using UnityEngine;
 
 public class UI_Shop : MonoBehaviour
 {
+
+    public static UI_Shop instance;
+    public GameObject MainMenu;
+    //public GameObject Hat1;
+    //public GameObject Hat2;
+    //public GameObject Hat3;
+    //public GameObject Hat4;
     // Start is called before the first frame update
-    
+
+
+
+
+
 
     // Update is called once per frame
     void Update()
@@ -13,29 +24,54 @@ public class UI_Shop : MonoBehaviour
 
     }
 
-    private Transform container;
-    private Transform shoptemplate;
-
-    private void Awake()
+    void Awake()
     {
-        container = transform.Find("container");
-        shoptemplate = container.Find("ShopItemTemp");
-     //   shoptemplate.gameObject.SetActive(false); 
+        instance = this;
+        Hide();
+    }
+    public void Show()
+    {
+       
+        MainMenu.SetActive(true);
+        print("HIHIHIHI SHOP OPENED WHOOO");
+    }
+    public void Hide()
+        {
+            gameObject.SetActive(false);
+        }
+
+
+    void goTo(GameObject menu)
+    {
+        MainMenu.SetActive(false);
+     //   Hat1.SetActive(false);
+     //   Hat2.SetActive(false);
+     //   Hat3.SetActive(false);
+     //   Hat4.SetActive(false);
+
+        menu.SetActive(true);
 
     }
-    private void CreateItemButton(string name, int position)
-    {
-        Transform shopItemTransform = Instantiate(shoptemplate, container);
-        RectTransform shopItemRectTransform = shopItemTransform.GetComponent<RectTransform>();
 
-        float shopHeight = 90f;
-        shopItemRectTransform.anchoredPosition = new Vector2(0, -shopHeight * position);
-        shopItemTransform.Find("nameText").GetComponent<TMPro.TextMeshProUGUI>().SetText(name);
-    }
-
-    private void Start()
+    public void mainMenu()
     {
-        CreateItemButton("Gun" , 1);
-        CreateItemButton("Armor", 2);
+        goTo(MainMenu);
     }
+    //public void hat1()
+    //{
+    //    goTo(Hat1);
+    //}
+    //public void hat2()
+    //{
+    //    goTo(Hat2);
+    //}
+    //public void hat3()
+    //{
+    //    goTo(Hat3);
+    //}
+    //public void hat4()
+    //{
+    //    goTo(Hat4);
+    //}
+
 }
