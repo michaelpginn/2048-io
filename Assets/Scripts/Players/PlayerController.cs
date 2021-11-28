@@ -121,6 +121,7 @@ public class PlayerController : MonoBehaviour
             bulletController.hit = true;
 
             // Determine if it hit a player
+            print(hit.collider);
             PlayerController otherPlayer = hit.collider.GetComponent<PlayerController>();
             if (otherPlayer != null && !otherPlayer.isDead)
             {

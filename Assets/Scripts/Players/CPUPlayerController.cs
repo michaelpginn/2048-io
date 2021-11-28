@@ -14,6 +14,8 @@ public class CPUPlayerController : MonoBehaviour
     private Vector3 movementDirection;
     private bool shouldJump;
     private Quaternion targetRotation;
+    private float accuracy = 0.5f;
+    private bool shouldShoot = true;
     
     
     // Use this for initialization
@@ -40,9 +42,14 @@ public class CPUPlayerController : MonoBehaviour
         if (Time.time > nextChangeTime)
         {
             nextChangeTime += changePeriod;
-            if (Vector3.Distance(HumanPlayerController.humanPlayerInstance.transform.position, transform.position) < 20) {
-                playerController.Shoot(transform.position, transform.forward);
-
+            if (Vector3.Distance(HumanPlayerController.humanPlayerInstance.transform.position, transform.position) < 20)
+            {
+                float flip = Random.value;
+                if (flip <= accuracy && shouldShoot)
+                {
+                    playerController.Shoot(transform.position, transform.forward);
+                }
+                
                 movementDirection = (HumanPlayerController.humanPlayerInstance.transform.position - transform.position)/10;
                 movementDirection.y = 0;
 
@@ -55,6 +62,8 @@ public class CPUPlayerController : MonoBehaviour
                 shouldJump = false;
                 targetRotation = Quaternion.Euler(0, Random.Range(0, 360), 0);
             }
+
+            shouldShoot = !shouldShoot;
         }
     }
 }
