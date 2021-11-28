@@ -74,4 +74,9 @@ public class UI_Shop : MonoBehaviour
     //    goTo(Hat4);
     //}
 
+    public void addHat1()
+    {
+
+    }
+
 }
