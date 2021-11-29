@@ -27,7 +27,8 @@ public class PlayerModel : MonoBehaviour
         }
         else
         {
-            level = (PlayerLevel)Random.Range(0, (int)PlayerLevel.Level64);
+            var playerLevel = GameController.instance.level;
+            level = (PlayerLevel)Random.Range(0, (int)playerLevel);
         }
         
         SetMaterial();
