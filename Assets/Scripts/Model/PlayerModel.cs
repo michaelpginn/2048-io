@@ -27,8 +27,9 @@ public class PlayerModel : MonoBehaviour
         }
         else
         {
-            var playerLevel = GameController.instance.level;
-            level = (PlayerLevel)Random.Range(0, (int)playerLevel);
+            var playerLevel = (int)GameController.instance.level;
+            // Generate players between playerLevel - 3 and playerLevel + 4
+            level = (PlayerLevel)Random.Range(Math.Max(0, playerLevel - 3), Math.Min(playerLevel + 4, (int)PlayerLevel.Level2048)+1);
         }
         
         SetMaterial();

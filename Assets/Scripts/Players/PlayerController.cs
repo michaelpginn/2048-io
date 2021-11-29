@@ -103,6 +103,9 @@ public class PlayerController : MonoBehaviour
         GetComponent<BoxCollider>().enabled = false;
         ParticleSystem explosion = GetComponent<ParticleSystem>();
         explosion.Play();
+        if (playerModel.playerType == PlayerType.CPU) {
+            EnemyControl.instance.enemyCount--;
+        }
         Destroy(gameObject, explosion.main.duration + 2);
     }
 
