@@ -19,7 +19,7 @@ public class CPUPlayerController : MonoBehaviour
 
     private float accuracy = 0.5f;
 
-    private static int DETECTION_DISTANCE = 10;
+    private static int DETECTION_DISTANCE = 20;
 
     private PlayerModel playerModel;
     
@@ -48,7 +48,7 @@ public class CPUPlayerController : MonoBehaviour
 
         if (Time.time > nextChangeTime)
         {
-            nextChangeTime += changePeriod;
+            nextChangeTime += Random.Range(changePeriod, changePeriod * 3);
 
             movementDirection = new Vector3(Random.Range(-1, 2), 0, Random.Range(-1, 2));
 
@@ -62,6 +62,7 @@ public class CPUPlayerController : MonoBehaviour
                 return;
             }
 
+
             GameObject selectedTarget = null;
 
             var biggerEnemies = new List<GameObject>();
@@ -72,7 +73,6 @@ public class CPUPlayerController : MonoBehaviour
                 if (enemy.gameObject.transform == transform)
                 {
                     // This is the same player
-                    print("skipping");
                     continue;
                 }
                 var model = enemy.gameObject.GetComponent<PlayerModel>();
@@ -110,7 +110,7 @@ public class CPUPlayerController : MonoBehaviour
                 }
             }
 
-            playerController.Shoot(transform.position, selectedTarget.transform.position);
+            playerController.Shoot(transform.position, transform.forward);
             targetRotation = Quaternion.LookRotation((selectedTarget.transform.position - transform.position));
         }
     }
