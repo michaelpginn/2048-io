@@ -46,11 +46,8 @@ public class CPUPlayerController : MonoBehaviour
         //print(movementDirection);
         playerController.SetMovement(movementDirection, shouldJump, targetRotation);
 
-        if (Time.time > nextChangeTime)
-        {
-            nextChangeTime += Random.Range(changePeriod, changePeriod * 3);
+        
 
-            movementDirection = new Vector3(Random.Range(-1, 2), 0, Random.Range(-1, 2));
 
             var nearbyEnemies = Physics.OverlapSphere(transform.position, DETECTION_DISTANCE, LayerMask.GetMask("Player"));
             // Select the nearby player, if any, with the most optimal number
@@ -58,7 +55,11 @@ public class CPUPlayerController : MonoBehaviour
             if (nearbyEnemies.Length <= 1)
             {
                 shouldShoot = false;
-                targetRotation = Quaternion.Euler(0, Random.Range(0, 360), 0);
+                if (Time.time > nextChangeTime)
+                {
+                    targetRotation = Quaternion.Euler(0, Random.Range(0, 360), 0);
+                    nextChangeTime += Random.Range(changePeriod, changePeriod * 3);
+                }
                 return;
             }
 
@@ -105,13 +106,23 @@ public class CPUPlayerController : MonoBehaviour
                 if (selectedTarget == null) {
                     shouldShoot = false;
                     movementDirection = new Vector3(Random.Range(-1, 2), 0, Random.Range(-1, 2));
-                    targetRotation = Quaternion.Euler(0, Random.Range(0, 360), 0);
+                    if (Time.time > nextChangeTime)
+                    {
+                        targetRotation = Quaternion.Euler(0, Random.Range(0, 360), 0);
+                        nextChangeTime += Random.Range(changePeriod, changePeriod * 3);
+                    }
                     return;
                 }
             }
 
-            playerController.Shoot(transform.position, transform.forward);
-            targetRotation = Quaternion.LookRotation((selectedTarget.transform.position - transform.position));
+        if (Time.time > nextChangeTime)
+        {
+            nextChangeTime += Random.Range(changePeriod, changePeriod * 3);
+            Vector3 noise = new Vector3(Random.Range(-0.5f, 0.5f), Random.Range(-0.1f, 0.1f), Random.Range(-0.5f, 0.5f));
+            playerController.Shoot(transform.position+noise, transform.forward);
+            movementDirection = new Vector3(Random.Range(-1, 2), 0, Random.Range(-1, 2));
+
         }
+        targetRotation = Quaternion.LookRotation((selectedTarget.transform.position - transform.position));
     }
 }

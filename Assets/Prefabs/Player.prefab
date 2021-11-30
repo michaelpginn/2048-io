@@ -698,6 +698,7 @@ MonoBehaviour:
   aimCamera: {fileID: 0}
   shootSound: {fileID: 8300000, guid: 7a59275269feb47c0b986fd762a21ab9, type: 3}
   explodeSound: {fileID: 8300000, guid: 43cee8af341934ce8bcfed257494f859, type: 3}
+  hitSound: {fileID: 8300000, guid: 84d138c4cec9c420daa14832a1f751c9, type: 3}
 --- !u!199 &2018707219710030066
 ParticleSystemRenderer:
   serializedVersion: 6
@@ -5493,9 +5494,9 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 50
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 1
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -5528,7 +5529,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -5543,7 +5544,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 0.2611111
       inSlope: 0
       outSlope: 0
       tangentMode: 0
