@@ -25,6 +25,7 @@ public class PlayerController : MonoBehaviour
     AudioSource audioSource;
     public AudioClip shootSound;
     public AudioClip explodeSound;
+    public AudioClip hitSound;
 
     // Fields for player controller sub-scripts to effect movement
     private Vector3 movementInput;
@@ -197,6 +198,11 @@ public class PlayerController : MonoBehaviour
     public bool DecrementHealth(int value)
     {
         var isAlive = playerModel.DecrementHealth(value);
+        if (playerModel.playerType==PlayerType.human) {
+            GameController.instance.GotShot();
+            audioSource.PlayOneShot(hitSound);
+        }
+        
         if (!isAlive)
         {
             Explode();
