@@ -100,7 +100,7 @@ public class PlayerController : MonoBehaviour
     {
         isDead = true;
         audioSource.PlayOneShot(explodeSound);
-        GetComponent<BoxCollider>().enabled = false;
+        GetComponent<CharacterController>().detectCollisions = false;
         ParticleSystem explosion = GetComponent<ParticleSystem>();
         explosion.Play();
         if (playerModel.playerType == PlayerType.CPU) {
