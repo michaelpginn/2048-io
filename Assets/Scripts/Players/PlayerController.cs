@@ -45,8 +45,9 @@ public class PlayerController : MonoBehaviour
 
     /// <summary> Stores essential information about the player such as their level and type </summary>
     private PlayerModel playerModel;
+    public PlayerController instance; 
 
-
+ 
     private void Start()
     {
         playerModel = GetComponent<PlayerModel>();
@@ -69,6 +70,7 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+
         if (isDead)
         {
             // We are in the process of exploding, no moving.

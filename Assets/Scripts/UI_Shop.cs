@@ -6,8 +6,11 @@ public class UI_Shop : MonoBehaviour
 {
 
     public static UI_Shop instance;
+ 
     public GameObject MainMenu;
-    //public GameObject Hat1;
+    public GameObject Hat1;
+    public GameObject crosshairs;
+    public CursorMode cursorMode;
     //public GameObject Hat2;
     //public GameObject Hat3;
     //public GameObject Hat4;
@@ -31,14 +34,28 @@ public class UI_Shop : MonoBehaviour
     }
     public void Show()
     {
-       
+        crosshairs.SetActive(false);
         MainMenu.SetActive(true);
-        print("HIHIHIHI SHOP OPENED WHOOO");
+        cursorMode = CursorMode.Auto;
+
+    print("HIHIHIHI SHOP OPENED WHOOO");
+        Time.timeScale = 0;
+        HumanPlayerController.instance.pause = true;
+        
+
+      
     }
     public void Hide()
         {
+        crosshairs.SetActive(true);
             gameObject.SetActive(false);
+             Time.timeScale = 1;
+        if(HumanPlayerController.instance != null)
+        {
+            HumanPlayerController.instance.pause = false;
+
         }
+    }
 
 
     void goTo(GameObject menu)
@@ -76,7 +93,9 @@ public class UI_Shop : MonoBehaviour
 
     public void addHat1()
     {
-
+        Instantiate(Hat1, new Vector3(0, 0, 0), Quaternion.identity);
+        print("hat 1 added");
     }
 
+    
 }

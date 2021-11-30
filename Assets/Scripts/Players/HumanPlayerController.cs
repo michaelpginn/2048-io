@@ -24,6 +24,7 @@ public class HumanPlayerController : MonoBehaviour
     /// Stores essential information about the player such as their level and type
     /// </summary>
     private PlayerModel playerModel;
+    public bool pause;
 
     private void Awake()
     {
@@ -68,7 +69,11 @@ public class HumanPlayerController : MonoBehaviour
 
         playerController.SetMovement(move, jumpAction.triggered, targetRotation);
 
-       
+        if (pause)
+        {
+            return;
+        }
+
     }
 
     void OnDestroy() {
