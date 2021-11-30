@@ -138,8 +138,13 @@ public class PlayerController : MonoBehaviour
                 {
                     // We have killed another player. If they were your level or higher, we should level up.
                     playerModel.LevelUp();
-                    UpdateSideNumberDisplay();
 
+                    if (playerModel.playerType == PlayerType.human)
+                    {
+                        DamageNumber.damage = playerModel.GetDamageAmount();
+                    }
+
+                    UpdateSideNumberDisplay();
                     UpdateCameraForLevel();
                 }
             }
