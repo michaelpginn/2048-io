@@ -27,7 +27,9 @@ public class PlayerModel : MonoBehaviour
         }
         else
         {
-            level = (PlayerLevel)Random.Range(0, (int)PlayerLevel.Level64);
+            var playerLevel = (int)GameController.instance.level;
+            // Generate players between playerLevel - 3 and playerLevel + 4
+            level = (PlayerLevel)Random.Range(Math.Max(0, playerLevel - 3), Math.Min(playerLevel + 4, (int)PlayerLevel.Level2048)+1);
         }
         
         SetMaterial();
@@ -64,7 +66,7 @@ public class PlayerModel : MonoBehaviour
         var levelExponent = ((int)level) + 1;
         maxHealth = levelExponent * (int)(Math.Pow(2, (double)levelExponent));
         currentHealth = maxHealth;
-        healthBar.fillAmount = (float)currentHealth / maxHealth;
+        SetHealthBar((float)currentHealth / maxHealth);
     }
 
     /// <summary>Decrements the health of a player by a given amount of damage.</summary>
@@ -74,11 +76,12 @@ public class PlayerModel : MonoBehaviour
         if (currentHealth <= damage)
         {
             currentHealth = 0;
-            healthBar.fillAmount = 0;
+            SetHealthBar(0);
+            
             return false;
         }
         currentHealth -= damage;
-        healthBar.fillAmount = (float)currentHealth / maxHealth;
+        SetHealthBar((float)currentHealth / maxHealth);
         return true;
     }
 
@@ -106,5 +109,13 @@ public class PlayerModel : MonoBehaviour
 
         // at highest level -- cannot level-up
         return false;
+    }
+
+    void SetHealthBar(float value)
+    {
+        if (healthBar)
+        {
+            healthBar.fillAmount = value;
+        }
     }
 }

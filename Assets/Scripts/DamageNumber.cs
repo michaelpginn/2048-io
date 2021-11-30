@@ -13,11 +13,14 @@ public class DamageNumber : MonoBehaviour
 
     static float DISAPPEAR_SPEED = 3f;
 
+    static public int damage = 2;
+
     // Start is called before the first frame update
     void Start()
     {
         text = transform.GetComponent<TextMeshProUGUI>();
         textColor = text.color;
+        text.SetText(damage.ToString());
     }
 
     // Update is called once per frame

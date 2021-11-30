@@ -24,15 +24,25 @@ public class EnterShop : MonoBehaviour
 
     void OnTriggerEnter(Collider collider)
     {
+        if (!collider.GetComponent<PlayerModel>() || !(collider.GetComponent<PlayerModel>().playerType == PlayerType.human))
+        {
+            return;   
+        }
+
         print("HIHIHIHI");
         UI_Shop.instance.Show();
-      //  crosshairs.SetActive(false);
+        crosshairs.SetActive(false);
     }
 
     private void OnTriggerExit(Collider collider)
     {
+        if (!collider.GetComponent<PlayerModel>() || !(collider.GetComponent<PlayerModel>().playerType == PlayerType.human))
+        {
+            return;
+        }
+
         UI_Shop.instance.Hide();
-     //   crosshairs.SetActive(true);
+        crosshairs.SetActive(true);
 
     }
 

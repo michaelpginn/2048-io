@@ -19,7 +19,7 @@ public class GameController : MonoBehaviour
     public Text healthText;
 
     public int score;
-    public int level;
+    public PlayerLevel level;
     
     private void Awake()
     {
@@ -29,15 +29,15 @@ public class GameController : MonoBehaviour
 
     private void Update()
     {
-        level = player.GetComponent<PlayerController>().GetLevel().GetNumericalValue();
+        level = player.GetComponent<PlayerController>().GetLevel();
         scoreText.text = "Score: " + score.ToString();
-        healthText.text = player.GetComponent<PlayerModel>().GetCurrentHealth() + "/" + player.GetComponent<PlayerModel>().GetMaxHealth();
+        //healthText.text = player.GetComponent<PlayerModel>().GetCurrentHealth() + "/" + player.GetComponent<PlayerModel>().GetMaxHealth();
     }
 
     public void UpdateScore()
     {
         print("Level is " + level);
-        score += level;
+        score += level.GetNumericalValue();
     }
 
     public void IncrementScore(int amount) {

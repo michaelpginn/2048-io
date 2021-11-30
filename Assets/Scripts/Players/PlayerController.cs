@@ -100,9 +100,12 @@ public class PlayerController : MonoBehaviour
     {
         isDead = true;
         audioSource.PlayOneShot(explodeSound);
-        GetComponent<BoxCollider>().enabled = false;
+        GetComponent<CharacterController>().detectCollisions = false;
         ParticleSystem explosion = GetComponent<ParticleSystem>();
         explosion.Play();
+        if (playerModel.playerType == PlayerType.CPU) {
+            EnemyControl.instance.enemyCount--;
+        }
         Destroy(gameObject, explosion.main.duration + 2);
     }
 
@@ -135,8 +138,13 @@ public class PlayerController : MonoBehaviour
                 {
                     // We have killed another player. If they were your level or higher, we should level up.
                     playerModel.LevelUp();
-                    UpdateSideNumberDisplay();
 
+                    if (playerModel.playerType == PlayerType.human)
+                    {
+                        DamageNumber.damage = playerModel.GetDamageAmount();
+                    }
+
+                    UpdateSideNumberDisplay();
                     UpdateCameraForLevel();
                 }
             }

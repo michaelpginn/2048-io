@@ -524,7 +524,6 @@ GameObject:
   - component: {fileID: 7041274446679888759}
   - component: {fileID: 8470156219997722377}
   - component: {fileID: 8470156219997722376}
-  - component: {fileID: 8470156219997722383}
   - component: {fileID: 8470156219997722373}
   - component: {fileID: 8470156219997722372}
   - component: {fileID: 8470156219997722374}
@@ -613,19 +612,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &8470156219997722383
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8470156219997722382}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &8470156219997722373
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -688,6 +674,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerType: 1
   level: 0
+  healthBar: {fileID: 0}
 --- !u!114 &8470156219997722379
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5592,7 +5579,6 @@ GameObject:
   - component: {fileID: 8470156220636439290}
   - component: {fileID: 8470156220636439285}
   - component: {fileID: 8470156220636439284}
-  - component: {fileID: 8470156220636439291}
   m_Layer: 0
   m_Name: Barrel
   m_TagString: Player
@@ -5664,20 +5650,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &8470156220636439291
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8470156220636439289}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8658669214939815072
 GameObject:
   m_ObjectHideFlags: 0
@@ -5862,7 +5834,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1311892635432530, guid: 59fd4762fc827164bb3eadbefb882946, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1311892635432530, guid: 59fd4762fc827164bb3eadbefb882946, type: 3}
       propertyPath: m_TagString
