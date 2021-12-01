@@ -10,11 +10,18 @@ public class UI_Shop : MonoBehaviour
     public GameObject MainMenu;
     public GameObject Hat1;
     public GameObject crosshairs;
+    public GameObject character;
+    public GameObject newHat; 
+
+    private PlayerModel playerModel;
+    public Vector3 position; 
+
+
     //public GameObject Hat2;
     //public GameObject Hat3;
     //public GameObject Hat4;
     // Start is called before the first frame update
- 
+
 
 
 
@@ -24,7 +31,6 @@ public class UI_Shop : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
     }
 
     void Awake()
@@ -99,9 +105,11 @@ public class UI_Shop : MonoBehaviour
     public void addHat1()
     {
         print("before hat 1 added");
-
-        Instantiate(Hat1, new Vector3(0, 0, 0), Quaternion.identity);
+        //print(playerModel.GetPosition());
+        position = character.transform.position;
+        newHat=Instantiate(Hat1, position, Quaternion.identity);
         print("hat 1 added");
+     
     }
 
     

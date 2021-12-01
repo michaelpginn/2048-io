@@ -10,13 +10,17 @@ using UnityEngine.SceneManagement;
 public class HumanPlayerController : MonoBehaviour
 {
     private PlayerController playerController;
+    public PlayerType playerType;
     private PlayerInput playerInput;
-    public static HumanPlayerController instance; 
+    public  static HumanPlayerController instance; 
     private Transform cameraTransform;
 
     private InputAction moveAction; 
     private InputAction jumpAction;
     private InputAction shootAction;
+
+   
+
 
     static public HumanPlayerController humanPlayerInstance;
 
@@ -69,6 +73,8 @@ public class HumanPlayerController : MonoBehaviour
 
         playerController.SetMovement(move, jumpAction.triggered, targetRotation);
 
+     
+
         if (pause)
         {
             return;
@@ -81,6 +87,8 @@ public class HumanPlayerController : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
         SceneManager.LoadScene("DeathScene", LoadSceneMode.Single);
     }
+
+
 
    
 }

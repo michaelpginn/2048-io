@@ -9,7 +9,8 @@ public class PlayerModel : MonoBehaviour
     public PlayerLevel level;
     private int maxHealth;
     private int currentHealth;
-
+    public HumanPlayerController instance;
+    public Vector3 position;
     public Image healthBar;
 
     // Material of the player
@@ -118,4 +119,16 @@ public class PlayerModel : MonoBehaviour
             healthBar.fillAmount = value;
         }
     }
+
+    public Vector3 GetPosition()
+    {
+        if (playerType==PlayerType.human)
+        {
+            position = instance.transform.position;
+            return position;
+        }
+
+        return position;
+    }
+
 }

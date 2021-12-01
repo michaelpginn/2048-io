@@ -34,6 +34,7 @@ public class PlayerController : MonoBehaviour
 
     private Vector3 playerVelocity;
     private bool isDead = false;
+    
 
     // Controls movement
     private CharacterController characterController;
@@ -45,9 +46,12 @@ public class PlayerController : MonoBehaviour
 
     /// <summary> Stores essential information about the player such as their level and type </summary>
     private PlayerModel playerModel;
-    public PlayerController instance; 
+    public PlayerController instance;
 
- 
+    public static UI_Shop newHatinstance;
+    public GameObject character;
+
+
     private void Start()
     {
         playerModel = GetComponent<PlayerModel>();
@@ -97,6 +101,10 @@ public class PlayerController : MonoBehaviour
 
         // Rotate player towards target rotation
         transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+
+    //    print(newHatinstance.transform.position);
+    //    newHatinstance.newHat.transform.position = character.transform.position + new Vector3(0, 1, 0);
+
     }
 
     private void Explode()
@@ -232,4 +240,6 @@ public class PlayerController : MonoBehaviour
     public bool GetIsDead() {
         return isDead;
     }
+
+
 }
