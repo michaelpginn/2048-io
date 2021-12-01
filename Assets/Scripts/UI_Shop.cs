@@ -15,6 +15,7 @@ public class UI_Shop : MonoBehaviour
     public GameObject crosshairs;
     public GameObject character;
     public GameObject currentHat; 
+    public GameObject crownButton;
 
     public Text crownText;
     public Text sombreroText;
@@ -43,6 +44,7 @@ public class UI_Shop : MonoBehaviour
         crosshairs.SetActive(false);
         MainMenu.SetActive(true);
         Cursor.lockState = CursorLockMode.None;
+        crownButton.SetActive(true);
 
 
         print("opened shop");
@@ -64,6 +66,7 @@ public class UI_Shop : MonoBehaviour
         currScore.text = "Current Score: " + GameController.instance.score + " PTS";
 
     }
+
     public void Hide() {
         print("closed shop");
      
@@ -71,6 +74,7 @@ public class UI_Shop : MonoBehaviour
         crosshairs.SetActive(true);
         Time.timeScale = 1;
         PlayerController.inShop = false;
+        crownButton.SetActive(false);
         if(HumanPlayerController.instance != null)
         {
             HumanPlayerController.instance.pause = false;
@@ -123,7 +127,7 @@ public class UI_Shop : MonoBehaviour
         if (!ownsMustache) {
             if (GameController.instance.score >= 100) {
                 GameController.instance.score = GameController.instance.score - 100; 
-                ownsCrown = true;
+                ownsMustache = true;
             } else {
                 // not enough moneys
                 return;
