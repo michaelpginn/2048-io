@@ -58,7 +58,7 @@ public class CPUPlayerController : MonoBehaviour
                 if (Time.time > nextChangeTime)
                 {
                     targetRotation = Quaternion.Euler(0, Random.Range(0, 360), 0);
-                    nextChangeTime += Random.Range(changePeriod, changePeriod * 3);
+                    nextChangeTime = Time.time + Random.Range(changePeriod, changePeriod * 3);
                 }
                 return;
             }
@@ -109,7 +109,7 @@ public class CPUPlayerController : MonoBehaviour
                     if (Time.time > nextChangeTime)
                     {
                         targetRotation = Quaternion.Euler(0, Random.Range(0, 360), 0);
-                        nextChangeTime += Random.Range(changePeriod, changePeriod * 3);
+                        nextChangeTime = Time.time + Random.Range(changePeriod, changePeriod * 3);
                     }
                     return;
                 }
@@ -117,8 +117,8 @@ public class CPUPlayerController : MonoBehaviour
 
         if (Time.time > nextChangeTime)
         {
-            nextChangeTime += Random.Range(changePeriod, changePeriod * 3);
-            Vector3 noise = new Vector3(Random.Range(-0.5f, 0.5f), Random.Range(-0.1f, 0.1f), Random.Range(-0.5f, 0.5f));
+            nextChangeTime = Time.time + Random.Range(changePeriod, changePeriod * 3);
+            Vector3 noise = new Vector3(Random.Range(-5f, 5f), Random.Range(-1f, 1f), Random.Range(-1f, 1f));
             playerController.Shoot(transform.position+noise, transform.forward);
             movementDirection = new Vector3(Random.Range(-1, 2), 0, Random.Range(-1, 2));
 

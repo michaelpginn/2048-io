@@ -34,6 +34,7 @@ public class PlayerController : MonoBehaviour
 
     private Vector3 playerVelocity;
     private bool isDead = false;
+    static public bool inShop = false;
     
 
     // Controls movement
@@ -75,7 +76,7 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
 
-        if (isDead)
+        if (isDead || inShop)
         {
             // We are in the process of exploding, no moving.
             return;

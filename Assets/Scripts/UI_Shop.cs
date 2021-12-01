@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UI_Shop : MonoBehaviour
 {
@@ -8,25 +9,24 @@ public class UI_Shop : MonoBehaviour
     public static UI_Shop instance;
  
     public GameObject MainMenu;
-    public GameObject Hat1;
+    public GameObject crown;
+    public GameObject sombrero;
+    public GameObject mustache;
     public GameObject crosshairs;
     public GameObject character;
-    public GameObject newHat; 
+    public GameObject currentHat; 
+
+    public Text crownText;
+    public Text sombreroText;
+    public Text mustacheText;
+    public Text currScore;
 
     private PlayerModel playerModel;
     public Vector3 position; 
-
-
-    //public GameObject Hat2;
-    //public GameObject Hat3;
-    //public GameObject Hat4;
-    // Start is called before the first frame update
-
-
-
-
-
-
+    
+    private bool ownsCrown = false;
+    private bool ownsSombrero = false;
+    private bool ownsMustache = false;
 
     // Update is called once per frame
     void Update()
@@ -48,19 +48,29 @@ public class UI_Shop : MonoBehaviour
         print("opened shop");
         Time.timeScale = 0;
         HumanPlayerController.humanPlayerInstance.pause = true;
+        PlayerController.inShop = true;
         print("paused time");
 
- 
+        if (ownsCrown) {
+            crownText.text = "PUT ON CROWN";
+        }
+        if (ownsSombrero) {
+            sombreroText.text = "PUT ON SOMBRERO";
+        }
+        if (ownsMustache) {
+            crownText.text = "PUT ON MUSTACHE";
+        }
 
-
+        currScore.text = "Current Score: " + GameController.instance.score + " PTS";
 
     }
     public void Hide() {
         print("closed shop");
      
-            MainMenu.SetActive(false);
+        MainMenu.SetActive(false);
         crosshairs.SetActive(true);
         Time.timeScale = 1;
+        PlayerController.inShop = false;
         if(HumanPlayerController.instance != null)
         {
             HumanPlayerController.instance.pause = false;
@@ -68,49 +78,64 @@ public class UI_Shop : MonoBehaviour
         }
     }
 
-
-    void goTo(GameObject menu)
+    public void getCrown()
     {
-        MainMenu.SetActive(false);
-     //   Hat1.SetActive(false);
-     //   Hat2.SetActive(false);
-     //   Hat3.SetActive(false);
-     //   Hat4.SetActive(false);
-
-        menu.SetActive(true);
-
+        if (!ownsCrown) {
+            if (GameController.instance.score >= 10) {
+                GameController.instance.score = GameController.instance.score - 10; 
+                ownsCrown = true;
+            } else {
+                // not enough moneys
+                return;
+            }
+        }
+        if (currentHat != null) {
+            Destroy(currentHat);
+        }
+        position = character.transform.position+ new Vector3(0,GameController.instance.level.GetScale().y/2,0);
+        currentHat=Instantiate(crown, position, Quaternion.identity);
+        currentHat.transform.parent = character.transform;
+        Hide();
     }
 
-    public void mainMenu()
+    public void getSombrero()
     {
-        goTo(MainMenu);
+        if (!ownsSombrero) {
+            if (GameController.instance.score >= 50) {
+                GameController.instance.score = GameController.instance.score - 50; 
+                ownsSombrero = true;
+            } else {
+                // not enough moneys
+                return;
+            }
+        }
+        if (currentHat != null) {
+            Destroy(currentHat);
+        }
+        position = character.transform.position+ new Vector3(0,GameController.instance.level.GetScale().y/2,0);
+        currentHat=Instantiate(sombrero, position, Quaternion.identity);
+        currentHat.transform.parent = character.transform;
+        Hide();
     }
-    //public void hat1()
-    //{
-    //    goTo(Hat1);
-    //}
-    //public void hat2()
-    //{
-    //    goTo(Hat2);
-    //}
-    //public void hat3()
-    //{
-    //    goTo(Hat3);
-    //}
-    //public void hat4()
-    //{
-    //    goTo(Hat4);
-    //}
 
-    public void addHat1()
+    public void getMustache()
     {
-        print("before hat 1 added");
-        //print(playerModel.GetPosition());
-        position = character.transform.position+ new Vector3(0,1,0);
-        newHat=Instantiate(Hat1, position, Quaternion.identity);
-        newHat.transform.parent = character.transform; 
-        print("hat 1 added");
-     
+        if (!ownsMustache) {
+            if (GameController.instance.score >= 100) {
+                GameController.instance.score = GameController.instance.score - 100; 
+                ownsCrown = true;
+            } else {
+                // not enough moneys
+                return;
+            }
+        } 
+        if (currentHat != null) {
+            Destroy(currentHat);
+        }
+        position = character.transform.position+ new Vector3(0,GameController.instance.level.GetScale().y/2,0);
+        currentHat=Instantiate(mustache, position, Quaternion.identity);
+        currentHat.transform.parent = character.transform;
+        Hide();
     }
 
     
