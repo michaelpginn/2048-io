@@ -144,7 +144,7 @@ public class PlayerController : MonoBehaviour
                     GameController.instance.ShowDamageNumber(otherPlayer.transform.position, playerModel.GetDamageAmount());
                 }
 
-                var otherPlayerAlive = otherPlayer.DecrementHealth(playerModel.GetDamageAmount());
+                var otherPlayerAlive = otherPlayer.DecrementHealth(playerModel.GetDamageAmount(), playerModel.playerType);
                 if (!otherPlayerAlive && otherPlayer.GetLevel() >= playerModel.level)
                 {
                     // We have killed another player. If they were your level or higher, we should level up.
@@ -205,7 +205,7 @@ public class PlayerController : MonoBehaviour
 
     /// <summary>Decrements the health of a player by a given amount of damage.</summary>
     /// <returns>True if the player is still alive (health is greater than 0), and false if they have no more health.</returns>
-    public bool DecrementHealth(int value)
+    public bool DecrementHealth(int value, PlayerType type)
     {
         var isAlive = playerModel.DecrementHealth(value);
         if (playerModel.playerType==PlayerType.human) {
@@ -216,7 +216,7 @@ public class PlayerController : MonoBehaviour
         if (!isAlive)
         {
             Explode();
-            if (playerModel.playerType != PlayerType.human) {
+            if (playerModel.playerType != PlayerType.human && type==PlayerType.human) {
                 GameController.instance.IncrementScore(this.GetLevel().GetNumericalValue());
             }
         }

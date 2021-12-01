@@ -106,8 +106,9 @@ public class UI_Shop : MonoBehaviour
     {
         print("before hat 1 added");
         //print(playerModel.GetPosition());
-        position = character.transform.position;
+        position = character.transform.position+ new Vector3(0,1,0);
         newHat=Instantiate(Hat1, position, Quaternion.identity);
+        newHat.transform.parent = character.transform; 
         print("hat 1 added");
      
     }

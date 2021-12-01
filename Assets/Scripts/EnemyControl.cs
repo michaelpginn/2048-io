@@ -13,7 +13,7 @@ public class EnemyControl : MonoBehaviour
 
     static public EnemyControl instance;
 
-    private static int MAX_ENEMIES = 30;
+    private static int MAX_ENEMIES = 15;
 
     // Start is called before the first frame update
     void Start()
