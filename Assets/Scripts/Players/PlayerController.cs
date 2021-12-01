@@ -215,9 +215,11 @@ public class PlayerController : MonoBehaviour
         
         if (!isAlive)
         {
+            print(type); 
             Explode();
             if (playerModel.playerType != PlayerType.human && type==PlayerType.human) {
                 GameController.instance.IncrementScore(this.GetLevel().GetNumericalValue());
+                print(type); 
             }
         }
         return isAlive;

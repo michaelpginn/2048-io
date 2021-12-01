@@ -104,7 +104,11 @@ public class PlayerModel : MonoBehaviour
             SetMaterial();
             SetScale();
             SetHealthFull();
-            GameController.instance.UpdateScore();
+            if (PlayerType.human == playerType)
+            {
+                GameController.instance.UpdateScore();
+
+            }
             return true;
         }
 
